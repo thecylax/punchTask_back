@@ -30,7 +30,7 @@ ENV_ROLE = get_env_variable('ENV_ROLE')
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = get_env_variable('PTM_DB_PASS')
+SECRET_KEY = get_env_variable('PTM_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -105,7 +105,7 @@ STATICFILES_DIRS = (
 
 # Template directory setting
 TEMPLATE_DIRS = (
-    os.path.join(os.path.dirname(__FILE__), 'templates'),
+    os.path.join(os.path.dirname(__file__), 'templates'),
 )
 
 # Custom template context processor setting
