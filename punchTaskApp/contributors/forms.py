@@ -7,11 +7,11 @@ class ContributorForm(UserCreationForm):
         widget = forms.TextInput(attrs={'class':'form-control'})
         )
     username = forms.CharField(
-        widget = TextInput(attrs={'class':'form-control'})
+        widget = forms.TextInput(attrs={'class':'form-control'})
         )
     password1 = forms.CharField(
-        widget=forms.TextInput(attrs={'class':'form-control', 'type':'password'})
+        widget = forms.TextInput(attrs={'class':'form-control', 'type':'password'})
     )
     password2 = forms.CharField(
-        widget=forms.TextInput(attrs={'class':'form-control', 'type':'password'})
+        widget = forms.TextInput(attrs={'class':'form-control', 'type':'password'})
     )

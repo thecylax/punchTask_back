@@ -6,10 +6,8 @@ from punchTaskApp.home.views import HomePage
 urlpatterns = patterns('',
     # Initial page
                        url(r'^$', HomePage.as_view(), name='home'),
-   #                   url(r'^admin/', include(admin.site.urls)),
-                       url(r'^$', HomePage.as_view(), name='sub_new'),
                        url(r'^signup/$',
                            'punchTaskApp.contributors.views.contributor_new', name = 'cont_new'
                        ),
-                       
+                       (r'^admin/', include(admin.site.urls)),
 )

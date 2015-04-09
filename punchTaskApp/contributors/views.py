@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 from punchTaskApp.contributors.forms import ContributorForm
 
 def contributor_new(request, template='contributors/contributor_new.html'):
-    if requested.method == 'POST':
+    if request.method == 'POST':
         form = ContributorForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
@@ -21,6 +21,6 @@ def contributor_new(request, template='contributors/contributor_new.html'):
             # Auto login the user
             return HttpResponseRedirect('/success/')
     else:
-        form = SubscriberForm()
+        form = ContributorForm()
 
     return render(request, template, {'form':form})
