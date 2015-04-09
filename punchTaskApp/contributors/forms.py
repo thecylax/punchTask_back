@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
-class Contributor(UserCreationForm):
+class ContributorForm(UserCreationForm):
     email = forms.EmailField(
         required = True,
         widget = forms.TextInput(attrs={'class':'form-control'})
