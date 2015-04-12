@@ -128,4 +128,4 @@ if ENV_ROLE == 'production':
     import dj_database_url
     DATABASES['default'] = dj_database_url.config()
     
-LOGIN_REDIRECT_URL = '/account/list'
+LOGIN_REDIRECT_URL = '/task/list'

@@ -6,6 +6,7 @@ from punchTaskApp.tasks.models import Task
 
 class TaskList(ListView):
     model = Task
+    paginate_by = 12
     template_name = 'tasks/task_list.html'
     context_object_name = 'tasks'
 
@@ -13,6 +14,6 @@ class TaskList(ListView):
         task_list = Task.objects.filter(owner=self.request.user)
         return task_list
 
-    @login_required
+    @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(TaskList, self).dispatch(*args, **kwargs)
