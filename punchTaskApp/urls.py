@@ -11,5 +11,6 @@ urlpatterns = patterns('',
                        url(r'^signup/$',
                            'punchTaskApp.contributors.views.contributor_new', name = 'cont_new'
                        ),
+                       url(r'^task/list/$', TaskList.as_view(), name='task_list'),
                        (r'^admin/', include(admin.site.urls)),
 )
