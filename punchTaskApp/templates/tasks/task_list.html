@@ -9,6 +9,13 @@
 	{# Add Task Link #}
       </h3>
       {# Task Search Form #}
+      <form action="{% url 'task_list' %}" method="get">
+	<input id="al-search" type="text"
+	       name="task" value="{{ request.GET.task }}"
+	       class="form-control" />
+	<input type="submit"
+	       value="Search" class="btn btn-success" />
+      </form>
     </div>
     {# List of Tasks #}
     <ul id="al-group" class="strip-list">

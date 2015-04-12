@@ -11,7 +11,14 @@ class TaskList(ListView):
     context_object_name = 'tasks'
 
     def get_queryset(self):
-        task_list = Task.objects.filter(owner=self.request.user)
+        try:
+            a = self.request.GET.get('task',)
+        except KeyError:
+            a = None
+        if a:
+            task_list = Task.objects.filter(name__icontains=a, owner=self.request.user)
+        else:
+            task_list = Task.objects.filter(owner=self.request.user)
         return task_list
 
     @method_decorator(login_required)
