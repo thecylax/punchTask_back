@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 
 from punchTaskApp.contributors.forms import ContributorForm
@@ -25,7 +27,16 @@ def contributor_new(request, template='contributors/contributor_new.html'):
             cont.save()
             # Process payment (via Stripe)
             # Auto login the user
-            return HttpResponseRedirect('/success/')
+            a_u = authenticate(username=username, password=password)
+            if a_u is not None:
+                if a_u.is_active:
+                    login(request, a_u)
+                    return HttpResponseRedirect(reverse('account_list'))
+                else:
+                    return HttpResponseRedirect(reverse('django.contrib.auth.views.login'))
+            else:
+                return HttpResponseRedirect(reverse('cont_new'))
+        
     else:
         form = ContributorForm()
 

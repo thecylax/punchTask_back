@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
+from punchTaskApp.contributors.models import Contributor
+
 class AddressMixin(forms.ModelForm):
     class Meta:
         model = Contributor
