@@ -31,7 +31,7 @@ def contributor_new(request, template='contributors/contributor_new.html'):
             if a_u is not None:
                 if a_u.is_active:
                     login(request, a_u)
-                    return HttpResponseRedirect(reverse('account_list'))
+                    return HttpResponseRedirect(reverse('task_list'))
                 else:
                     return HttpResponseRedirect(reverse('django.contrib.auth.views.login'))
             else:
