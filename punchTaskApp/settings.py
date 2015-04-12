@@ -55,6 +55,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'punchTaskApp.home',
     'punchTaskApp.contributors',
+    'punchTaskApp.tasks',
 )
 
 MIDDLEWARE_CLASSES = (
