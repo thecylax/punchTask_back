@@ -1,10 +1,12 @@
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
 from django.utils.decorators import method_decorator
 
 from punchTaskApp.tasks.models import Task
+from punchTaskApp.tasks.forms  import TaskForm
 
 class TaskList(ListView):
     model = Task
@@ -35,3 +37,22 @@ def task_detail(request, uid):
     context = {'task': task,}
 
     return render(request, 'tasks/task_detail.html', context)
+
+@login_required()
+def task_cru(request):
+    if request.POST:
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.owner = request.user
+            task.save()
+            redirect_url = reverse('punchTaskApp.tasks.views.task_detail', args=(task.uid,))
+            
+            return HttpResponseRedirect(redirect_url)
+        else:
+            form = TaskForm()
+
+        context = {'form': form,}
+        template = 'tasks/task_cru.html'
+
+        return render(request, template, context)
