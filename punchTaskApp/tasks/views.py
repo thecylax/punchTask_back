@@ -49,10 +49,10 @@ def task_cru(request):
             redirect_url = reverse('punchTaskApp.tasks.views.task_detail', args=(task.uid,))
             
             return HttpResponseRedirect(redirect_url)
-        else:
-            form = TaskForm()
+    else:
+        form = TaskForm()
 
-        context = {'form': form,}
-        template = 'tasks/task_cru.html'
-
-        return render(request, template, context)
+    context = {'form': form,}
+    template = 'tasks/task_cru.html'
+    
+    return render(request, template, context)
