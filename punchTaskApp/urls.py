@@ -3,6 +3,7 @@ from django.contrib import admin
 
 from punchTaskApp.home.views import HomePage
 from punchTaskApp.tasks.views import TaskList
+from punchTaskApp.tasks.urls import task_urls
 
 urlpatterns = patterns('',
     # Initial page
@@ -13,5 +14,7 @@ urlpatterns = patterns('',
                            'punchTaskApp.contributors.views.contributor_new', name = 'cont_new'
                        ),
                        url(r'^task/list/$', TaskList.as_view(), name='task_list'),
+                       url(r'^task/(?P<uid>[\w-]+)/', include(task_urls)),
+                       
                        (r'^admin/', include(admin.site.urls)),
 )

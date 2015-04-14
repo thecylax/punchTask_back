@@ -1,3 +1,5 @@
+from django.http import HttpResponseForbidden
+from django.shortcuts import render
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -24,3 +26,12 @@ class TaskList(ListView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(TaskList, self).dispatch(*args, **kwargs)
+
+@login_required()
+def task_detail(request, uid):
+    task = Task.objects.get(uid=uid)
+    if task.owner != request.user:
+        return HttpResponseForbidden()
+    context = {'task': task,}
+
+    return render(request, 'tasks/task_detail.html', context)
