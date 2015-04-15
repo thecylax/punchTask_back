@@ -1,5 +1,9 @@
 <form id="gi-form"
-      action=""
+      action="{% if task.uid %}
+	      {{ task.get_update_url }}
+	      {% else %}
+	      {% url 'task.new' %}
+	      {% endif %}"
       method="post">
   {% csrf_token %}
   <div id="gi-h-w">
