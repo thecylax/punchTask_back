@@ -25,7 +25,10 @@
     <ul id="al-group" class="strip-list">
       {% for task in tasks %}
       <li class="al-item">
-	<a href="{{ task.get_absolute_url }}"><h4 class="al-name">{{ task.name }}</h4></a>
+	#{{ task.uid }}
+	<a href="{{ task.get_absolute_url }}">
+	  <h4 class="al-name">{{ task.name }}</h4>
+	</a>
 	<span class="al-created">created on {{ task.created_on }}</span>
       </li>
       {% endfor %}

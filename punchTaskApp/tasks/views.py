@@ -40,22 +40,22 @@ def task_detail(request, uid):
 
 @login_required()
 def task_cru(request, uid=None):
+
     if uid:
         task = get_object_or_404(Task, uid=uid)
         if task.owner != request.user:
             return HttpResponseForbidden()
     else:
         task = Task(owner=request.user)
-        
+        max_ui = Task.objects.latest('uid').uid
+
     if request.POST:
         form = TaskForm(request.POST, instance=task)
         if form.is_valid():
             task = form.save(commit=False)
-            # usar try exception DoesNotExist
-            max_ui = Task.objects.latest('uid').uid
-            task.uid = max_ui + 1
+            if not uid:
+                task.uid = max_ui + 1
             task.owner = request.user
-            print task.uid
             task.save()
             redirect_url = reverse('punchTaskApp.tasks.views.task_detail', args=(task.uid,))
             
