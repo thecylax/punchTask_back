@@ -58,3 +58,13 @@ bash: document: command not found.ready(function() {
 
 
 });
+
+$(document).ready(function() {
+    // Task - Use Ajax to get the Task Edit form and
+    // display it on the page w/out a refresh
+
+    $('#gi-container').delegate('.edit-task', 'click', function(e) {
+	e.preventDefault();
+	$('#gi-container').load($(this).attr('href'));
+    });
+});

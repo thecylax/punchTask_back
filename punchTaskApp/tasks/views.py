@@ -67,6 +67,9 @@ def task_cru(request, uid=None):
         'form': form,
         'task': task,
     }
-    template = 'tasks/task_cru.html'
     
+    if request.is_ajax():
+        template = 'tasks/task_item_form.html'
+    else:
+        template = 'tasks/task_cru.html'
     return render(request, template, context)
