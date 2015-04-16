@@ -1,16 +1,22 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+STATUS = (
+    ('U', 'Unconfirmed'),
+    ('N', 'New'),
+    ('A', 'Assigned'),
+    ('R', 'Reopened'),
+    ('C', 'Closed'),
+)
 class Task(models.Model):
     uid = models.IntegerField(unique=True)
-    name = models.CharField(max_length=80)
+    product = models.CharField(max_length=80)
+    component = models.CharField(max_length=80)
+    assignee = models.ForeignKey(User)
+    status =  models.CharField(max_length=15, default='U', choices=STATUS)
     desc = models.TextField(blank=True)
-    #address_one = models.CharField(max_length=100)
-    #address_two = models.CharField(max_length=100, blank=True)
-    #city = models.CharField(max_length=50)
-    #state = models.CharField(max_length=2)
-    #phone = models.CharField(max_length=20)
     owner = models.ForeignKey(User)
+    modified_on = 
     created_on = models.DateField(auto_now_add=True)
     
     class Meta:
