@@ -22,17 +22,36 @@
       </form>
     </div>
     {# List of Tasks #}
-    <ul id="al-group" class="strip-list">
-      {% for task in tasks %}
-      <li class="al-item">
-	#{{ task.ticket }}
-	<a href="{{ task.get_absolute_url }}">
-	  <h4 class="al-name">{{ task.product }}</h4>
-	</a>
-	<span class="al-created">created on {{ task.created_on }}</span>
-      </li>
-      {% endfor %}
-    </ul>
+    <div class="panel panel-default">
+      <div class="panel-heading">Task List</div>
+      <table class="table table-hover">
+	<thead>
+	  <th><strong>Ticket</strong></th>
+	  <th>Product</th>
+	  <th>Component</th>
+	  <th>Description</th>
+	  <th>Created on</th>
+	</thead>
+	<tbody>
+	  {% for task in tasks %}
+	  <tr>
+	    <td>#{{ task.ticket }}</td>
+	    <td>
+	      <a href="{{ task.get_absolute_url }}">
+		<h4 class="al-name">{{ task.product }}</h4>
+	      </a>
+	    </td>
+	    <td>{{ task.component }}</td>
+	    <td>{{ task.desc}}</td>
+	    <td>
+	      <span class="al-created">{{ task.created_on }}</span>
+	    </td>
+	  </tr>
+	  {% endfor %}
+	</tbody>
+      </table>
+    </div>
+    
     {# Pagination Section #}
     {% if is_paginated %}
     <div id="al-paginate">
