@@ -20,9 +20,9 @@ class TaskList(ListView):
         except KeyError:
             a = None
         if a:
-            task_list = Task.objects.filter(name__icontains=a, owner=self.request.user)
+            task_list = Task.objects.filter(name__icontains=a, assignee=self.request.user)
         else:
-            task_list = Task.objects.filter(owner=self.request.user)
+            task_list = Task.objects.filter(assignee=self.request.user)
         return task_list
 
     @method_decorator(login_required)
@@ -30,37 +30,45 @@ class TaskList(ListView):
         return super(TaskList, self).dispatch(*args, **kwargs)
 
 @login_required()
-def task_detail(request, uid):
-    task = Task.objects.get(uid=uid)
-    if task.owner != request.user:
+def task_detail(request, ticket):
+    task = Task.objects.get(ticket=ticket)
+    if task.assignee != request.user:
         return HttpResponseForbidden()
     context = {'task': task,}
 
     return render(request, 'tasks/task_detail.html', context)
 
 @login_required()
-def task_cru(request, uid=None):
+def task_cru(request, ticket=None):
 
-    if uid:
-        task = get_object_or_404(Task, uid=uid)
-        if task.owner != request.user:
+    if ticket:
+        task = get_object_or_404(Task, ticket=ticket)
+        if task.assignee != request.user:
             return HttpResponseForbidden()
     else:
-        task = Task(owner=request.user)
-        max_ui = Task.objects.latest('uid').uid
+        task = Task(assignee=request.user)
+        try:
+            max_ui = Task.objects.latest('ticket').ticket
+        except Task.DoesNotExist:
+            max_ui = 0
 
     if request.POST:
         form = TaskForm(request.POST, instance=task)
+        print ">> entrou"
         if form.is_valid():
             task = form.save(commit=False)
-            if not uid:
-                task.uid = max_ui + 1
-            task.owner = request.user
+            print ">> valid"
+            if not ticket:
+                task.ticket = max_ui + 1
+            task.assignee = request.user
+            print ">> before save"
             task.save()
-            redirect_url = reverse('punchTaskApp.tasks.views.task_detail', args=(task.uid,))
+            print ticket
+            redirect_url = reverse('punchTaskApp.tasks.views.task_detail', args=(task.ticket,))
             
             return HttpResponseRedirect(redirect_url)
     else:
+        print ">> no post"
         form = TaskForm(instance=task)
 
     context = {

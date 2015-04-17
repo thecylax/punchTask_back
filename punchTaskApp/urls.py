@@ -14,7 +14,7 @@ urlpatterns = patterns('',
                        
                        url(r'^task/list/$', TaskList.as_view(), name='task_list'),
                        url(r'^task/new/$', 'punchTaskApp.tasks.views.task_cru', name='task_new'),
-                       url(r'^task/(?P<uid>[\w-]+)/', include(task_urls)),
+                       url(r'^task/(?P<ticket>[\w-]+)/', include(task_urls)),
                        
                        (r'^admin/', include(admin.site.urls)),
 )

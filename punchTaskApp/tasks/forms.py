@@ -5,7 +5,7 @@ from punchTaskApp.tasks.models import Task
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ('name', 'desc',)
+        fields = ('product', 'desc',)
         widgets = {
             'name': forms.TextInput(
                 attrs={
