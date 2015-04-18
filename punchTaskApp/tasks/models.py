@@ -8,12 +8,20 @@ STATUS = (
     ('R', 'Reopened'),
     ('C', 'Closed'),
 )
+
+TYPE = (
+    ('D', 'Defect'),
+    ('E', 'Enhancement'),
+    ('T', 'Task'),
+)
+
 class Task(models.Model):
     ticket = models.IntegerField(unique=True)
     product = models.CharField(max_length=80)
     component = models.CharField(max_length=80)
     assignee = models.ForeignKey(User)
     status =  models.CharField(max_length=15, default='U', choices=STATUS)
+    type =  models.CharField(max_length=15, default='T', choices=TYPE)
     desc = models.TextField(blank=True)
     #owner = models.ForeignKey(User)
     #modified_on = 

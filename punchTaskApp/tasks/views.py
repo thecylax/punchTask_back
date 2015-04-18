@@ -20,7 +20,7 @@ class TaskList(ListView):
         except KeyError:
             a = None
         if a:
-            task_list = Task.objects.filter(name__icontains=a, assignee=self.request.user)
+            task_list = Task.objects.filter(product__icontains=a, assignee=self.request.user)
         else:
             task_list = Task.objects.filter(assignee=self.request.user)
         return task_list

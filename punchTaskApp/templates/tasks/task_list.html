@@ -5,22 +5,25 @@
 <div id="content-container" class="container p-none">
   <div id="al-container" class="side-p">
     <div id="al-control">
-      <h3 class="ad-mh">Task List
-	{# Add Task Link #}
-	<span class="pull-right">
-	  <a href="{% url 'task_new' %}"
-	     class="btn btn-link p-r-none">+ Add New Task</a>
-	</span>
-      </h3>
       {# Task Search Form #}
-      <form action="{% url 'task_list' %}" method="get">
-	<input id="al-search" type="text"
-	       name="task" value="{{ request.GET.task }}"
-	       class="form-control" />
-	<input type="submit"
-	       value="Search" class="btn btn-success" />
-      </form>
+      <div class="row">
+	<div class="col-md-8">
+	  <form class="form-inline" role="search" action="{% url 'task_list' %}" method="get">
+	    <div class="form-group">
+	      <input type="text" class="form-control" value="{{ request.GET.task }}" name="task">
+	    </div>
+	    <button type="submit" class="btn btn-success">Search</button>
+	  </form>
+	</div>
+	<div class="col-md-4">
+	  <span class="pull-right">
+	    <a href="{% url 'task_new' %}"
+	       class="btn btn-link p-r-none">+ Add New Task</a>
+	  </span>
+	</div>
+      </div>
     </div>
+
     {# List of Tasks #}
     <div class="panel panel-default">
       <div class="panel-heading">Task List</div>
@@ -30,6 +33,8 @@
 	  <th>Product</th>
 	  <th>Component</th>
 	  <th>Description</th>
+	  <th>Status</th>
+	  <th>Type</th>
 	  <th>Created on</th>
 	</thead>
 	<tbody>
@@ -43,8 +48,10 @@
 	    </td>
 	    <td>{{ task.component }}</td>
 	    <td>{{ task.desc}}</td>
+	    <td>{{ task.get_status_display }}</td>
+	    <td>{{ task.get_type_display }}</td>
 	    <td>
-	      <span class="al-created">{{ task.created_on }}</span>
+	      <span>{{ task.created_on }}</span>
 	    </td>
 	  </tr>
 	  {% endfor %}

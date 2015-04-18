@@ -149,7 +149,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     margin-top: 30px;
     margin-bottom: 30px;
     background-color: white;
-    border: 1px solid #cccccc;
 }
 
 
@@ -377,6 +376,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 #al-control {
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 

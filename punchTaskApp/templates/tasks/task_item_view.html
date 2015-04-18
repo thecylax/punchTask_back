@@ -1,11 +1,23 @@
 <div class="gi-header">
-  <h3 class="ad-mh">{{ task.product }}
+  <div class="row">
+    <div class="col-md-8">
+      <h4><strong>#{{ task.ticket }}</strong>
+	<span class="label label-default">{{ task.get_type_display }}</span>
+	<span class="label label-default">{{ task.get_status_display }}</span>
+      </h4>
+    </div>
+    <div class="col-md-4">
+      Aberto a x dias atras
+    </div>
+  </div>
+  
+  <h4>{{ task.product }}
     {# Task Edit Link #}
     <span>
       <a class="ad-control edit-task btn btn-link"
 	 href="{{ task.get_update_url }}">Edit</a>
     </span>
-  </h3>
+  </h4>
 
 </div>
 <div class="row gi-body">
